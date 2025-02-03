@@ -25,7 +25,7 @@ const handler = async (req: Request): Promise<Response> => {
     const { to, subject, html }: EmailRequest = await req.json();
 
     const emailResponse = await resend.emails.send({
-      from: "Your App <onboarding@resend.dev>",
+      from: "Spaces Lease <info@spaces.lease>",
       to: [to],
       subject: subject,
       html: html,
