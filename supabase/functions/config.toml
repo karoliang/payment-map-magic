@@ -1,0 +1,7 @@
+project_id = "mddyirczgyasbqcmgnwc"
+
+[create-featured-subscription]
+verify_jwt = true
+
+[stripe-webhook]
+verify_jwt = false
