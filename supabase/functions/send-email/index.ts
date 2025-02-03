@@ -24,6 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { to, subject, html }: EmailRequest = await req.json();
 
+    // Check if the domain is verified by attempting to send the email
     const emailResponse = await resend.emails.send({
       from: "Spaces Lease <info@spaces.lease>",
       to: [to],
@@ -42,6 +43,22 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: any) {
     console.error("Error in send-email function:", error);
+    
+    // Provide a more helpful error message for domain verification issues
+    if (error.message?.includes("verify a domain")) {
+      return new Response(
+        JSON.stringify({
+          error: "Domain not verified",
+          message: "Please verify your domain at https://resend.com/domains before sending emails to external addresses. For testing, you can only send emails to info@spaces.lease",
+          originalError: error.message
+        }),
+        {
+          status: 403,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
     return new Response(
       JSON.stringify({ error: error.message }),
       {
