@@ -63,14 +63,25 @@ const Index = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="text-center space-y-6">
         <h1 className="text-4xl font-bold mb-4">Welcome to Your App</h1>
-        <p className="text-xl text-gray-600 mb-8">Get featured listing by subscribing!</p>
-        <Button 
-          onClick={handleSubscribe} 
-          disabled={isLoading}
-          className="w-full max-w-xs"
-        >
-          {isLoading ? "Loading..." : "Subscribe to Featured Listing"}
-        </Button>
+        <p className="text-xl text-gray-600 mb-8">
+          {session ? "Get featured listing by subscribing!" : "Please log in to subscribe"}
+        </p>
+        {session ? (
+          <Button 
+            onClick={handleSubscribe} 
+            disabled={isLoading}
+            className="w-full max-w-xs"
+          >
+            {isLoading ? "Loading..." : "Subscribe to Featured Listing"}
+          </Button>
+        ) : (
+          <Button 
+            onClick={() => navigate("/auth")} 
+            className="w-full max-w-xs"
+          >
+            Login to Subscribe
+          </Button>
+        )}
       </div>
     </div>
   );
