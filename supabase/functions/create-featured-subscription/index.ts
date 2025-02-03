@@ -58,11 +58,11 @@ serve(async (req) => {
       customerId = customer.id;
     }
 
-    // Create checkout session
+    // Create checkout session with test mode price ID
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       line_items: [{
-        price: 'price_1Ql4YFDX8qJb7gGhEdwEjhS2',
+        price: 'price_1Ql4YFDX8qJb7gGhEdwEjhS2_test', // Using test mode price ID
         quantity: 1,
       }],
       mode: 'subscription',
