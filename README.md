@@ -4,6 +4,50 @@
 
 **URL**: https://lovable.dev/projects/81832def-1a31-424a-b2ce-888fdabf5af5
 
+## Features
+
+### Email Integration (Resend)
+
+The project includes email functionality using Resend. To use this feature:
+
+1. Sign up for a Resend account at https://resend.com
+2. Get your API key from https://resend.com/api-keys
+3. Add the API key to Supabase Edge Function secrets as `RESEND_API_KEY`
+
+Usage example:
+```typescript
+import { sendEmail } from "@/lib/email";
+
+await sendEmail(
+  "user@example.com",
+  "Welcome!",
+  "<h1>Welcome to our app!</h1>"
+);
+```
+
+### Stripe Integration
+
+The project includes Stripe payment integration. To use this feature:
+
+1. Create a Stripe account at https://stripe.com
+2. Get your API key from https://dashboard.stripe.com/apikeys
+3. Add the API key to Supabase Edge Function secrets as `STRIPE_SECRET_KEY`
+4. Create a product and price in Stripe Dashboard
+
+Usage example:
+```typescript
+import { createCheckoutSession, checkSubscriptionStatus } from "@/lib/stripe";
+
+// Create checkout session
+const { data } = await createCheckoutSession("price_123");
+if (data?.url) {
+  window.location.href = data.url;
+}
+
+// Check subscription
+const { data: status } = await checkSubscriptionStatus("price_123");
+```
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
