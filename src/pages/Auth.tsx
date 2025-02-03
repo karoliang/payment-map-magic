@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { sendEmail } from "@/lib/email";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -30,6 +31,17 @@ const Auth = () => {
         });
         return;
       }
+
+      // Send welcome email
+      await sendEmail(
+        email,
+        "Welcome back!",
+        `
+        <h1>Welcome back to our app!</h1>
+        <p>We're glad to see you again. If you have any questions, feel free to reach out.</p>
+        <p>Best regards,<br>The Team</p>
+        `
+      );
 
       toast({
         title: "Success",
